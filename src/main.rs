@@ -17,14 +17,14 @@ fn main() {
     const TWIM_CONFIG_PATH: &str = "../twim-config/config.toml";
     const MATRIXDOTORG_PROJECTS_PATH: &str = "../matrix.org/gatsby/content/projects";
     const MATRIXTO_PROJECTS_PATH: &str = "../matrix.to/src/open/clients";
-    let projects_file = fs::read(PROJECT_DATA_PATH).expect("Unable to open master data file");
+    let projects_file = fs::read_to_string(PROJECT_DATA_PATH).expect("Unable to open master data file");
 
     let projects: projects::Projects =
-        toml::from_slice(&projects_file).expect("Unable to parse master data file");
+        toml::from_str(&projects_file).expect("Unable to parse master data file");
 
-    let twim_config_file = fs::read(TWIM_CONFIG_PATH).expect("Unable to open twim config file");
+    let twim_config_file = fs::read_to_string(TWIM_CONFIG_PATH).expect("Unable to open twim config file");
     let mut twim_config: twim_config::Config =
-        toml::from_slice(&twim_config_file).expect("Unable to parse twim-config file");
+        toml::from_str(&twim_config_file).expect("Unable to parse twim-config file");
 
     let mut twim_projects_matched = 0;
     let mut twim_projects_added = 0;
